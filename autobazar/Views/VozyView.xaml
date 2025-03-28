@@ -1,0 +1,37 @@
+﻿<Window x:Class="autobazar.Views.VozyView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:autobazar.Views" xmlns:viewmodels="clr-namespace:autobazar.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:VozyViewModel}"
+        mc:Ignorable="d"
+        Title="VozyView" Height="450" Width="800">
+    <Grid>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="77,59,0,0" VerticalAlignment="Top" Height="29" Width="65" Command="{Binding VyplnTabulkyCommand}"/>
+        <DataGrid ItemsSource="{Binding SeskupeneVozy}" AutoGenerateColumns="False" CanUserAddRows="False" Margin="457,121,84,75">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Název modelu&#xD;Cena bez DPH">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0}&#xD;{1:F2}" ConverterCulture="cs-CZ">
+                            <Binding Path="Item1"/>
+                            <Binding Path="Item2" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Cena s DPH" Binding="{Binding Item3, StringFormat=F2, ConverterCulture=cs-CZ}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid ItemsSource="{Binding Vozy}" AutoGenerateColumns="False" CanUserAddRows="False" Margin="65,121,424,75" Height="238">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Název" Binding="{Binding Model}" />
+                <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat=d, ConverterCulture=cs-CZ}" />
+                <DataGridTextColumn Header="Cena byz DPH" Binding="{Binding BezDPH}" />
+                <DataGridTextColumn Header="DPH" Binding="{Binding DPH}" />
+                <DataGridTextColumn Header="Cena s DPH" Binding="{Binding Cena}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock HorizontalAlignment="Left" Margin="65,97,0,0" TextWrapping="Wrap" Text="Všechny auta" VerticalAlignment="Top" Height="19" Width="311"/>
+        <TextBlock HorizontalAlignment="Left" Margin="457,97,0,0" TextWrapping="Wrap" Text="Auta seskupená dle modelů koupena o víkendu" VerticalAlignment="Top" Height="19" Width="259"/>
+    </Grid>
+</Window>
